@@ -4,6 +4,7 @@ import { uniqueID as uid } from "../helpers/help";
 export class QuoteService extends BaseService {
   constructor(count = 0) {
     super();
+    this.onQuoteUpdate;
     this._quotes = [
       {
         id: uid(),
@@ -25,6 +26,12 @@ export class QuoteService extends BaseService {
     ];
 
     this._count = count;
+  }
+
+  _emitQuoteUpdate() {
+    if (typeof this.onQuoteUpdate === "function") {
+      this.onQuoteUpdate();
+    }
   }
 
   get quotes() {
@@ -86,6 +93,7 @@ export class QuoteService extends BaseService {
     const newQuote = { id: uid(), text: text, author: author };
     this._quotes.push(newQuote);
     this._emitUpdate();
+    this._emitQuoteUpdate();
     return newQuote;
   }
 
@@ -98,6 +106,7 @@ export class QuoteService extends BaseService {
     if (index !== -1) {
       this._quotes.splice(index, 1);
       this._emitUpdate();
+      this._emitQuoteUpdate();
       return true;
     }
     return false;
@@ -110,6 +119,7 @@ export class QuoteService extends BaseService {
       this._quotes[index].text = text;
       this._quotes[index].author = author;
       this._emitUpdate();
+      this._emitQuoteUpdate();
       return true;
     }
     return false;
