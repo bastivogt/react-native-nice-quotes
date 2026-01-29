@@ -49,6 +49,7 @@ export default function App() {
       <Button title="-" onPress={incrementCountHandler} />
       <Text>{ServiceStore.counterService.count}</Text>
       <Button title="+" onPress={decrementCountHandler} />
+      <Text>---</Text>
       <Button title="Test" onPress={testHandler} />
       <Text>--------------------------------------------</Text>
       <Button title="Preview Quote" onPress={prevQuoteHandler} />
