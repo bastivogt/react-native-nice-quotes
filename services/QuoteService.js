@@ -95,11 +95,13 @@ export class QuoteService extends BaseService {
     return false;
   }
 
-  getCurrentQuote(emptyText = "No quotes available.") {
+  getCurrentQuote(
+    emptyQuote = { id: "", text: "No quote available.", author: "" },
+  ) {
     if (this.hasQuotes()) {
       return this._quotes[this._count];
     }
-    return { id: "", text: emptyText, author: "" };
+    return emptyQuote;
   }
 
   getQuoteByIndex(index) {
