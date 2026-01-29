@@ -39,6 +39,10 @@ export default function App() {
     console.log("nextQuoteHandler");
     ServiceStore.quoteService.nextQuote();
   }
+
+  function clearQuotesHandler() {
+    ServiceStore.quoteService.clearQuotes();
+  }
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
@@ -51,6 +55,9 @@ export default function App() {
       <Text>{ServiceStore.quoteService.getCurrentQuote().text}</Text>
       <Text>{ServiceStore.quoteService.getCurrentQuote().author}</Text>
       <Button title="Next Quote" onPress={nextQuoteHandler} />
+
+      <Text>---</Text>
+      <Button title="Clear quotes" onPress={clearQuotesHandler} />
 
       <StatusBar style="auto" />
     </View>

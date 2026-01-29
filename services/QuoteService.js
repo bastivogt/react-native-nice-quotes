@@ -43,6 +43,13 @@ export class QuoteService extends BaseService {
     return this._count;
   }
 
+  hasQuotes() {
+    if (this._quotes.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
   hasNextQuote() {
     if (this._count < this._quotes.length - 1) {
       return true;
@@ -88,8 +95,11 @@ export class QuoteService extends BaseService {
     return false;
   }
 
-  getCurrentQuote() {
-    return this._quotes[this._count];
+  getCurrentQuote(emptyText = "No quotes available.") {
+    if (this.hasQuotes()) {
+      return this._quotes[this._count];
+    }
+    return { id: "", text: emptyText, author: "" };
   }
 
   getQuoteByIndex(index) {
@@ -133,5 +143,11 @@ export class QuoteService extends BaseService {
       return true;
     }
     return false;
+  }
+
+  clearQuotes() {
+    this._emitUpdate();
+    this._emitQuoteUpdate();
+    this._quotes = [];
   }
 }
