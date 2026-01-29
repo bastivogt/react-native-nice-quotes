@@ -2,9 +2,10 @@ import { BaseService } from "./BaseService";
 import { uniqueID as uid } from "../helpers/help";
 
 export class QuoteService extends BaseService {
-  constructor(count = 0) {
+  constructor(count = 0, endless = true) {
     super();
     this.onQuoteUpdate;
+    this.endless = endless;
     this._quotes = [
       {
         id: uid(),
@@ -62,9 +63,14 @@ export class QuoteService extends BaseService {
       this._emitUpdate();
       return this._quotes[this._count];
     }
-    this._count = 0;
-    this._emitUpdate();
-    return this._quotes[this._count];
+
+    if (this.endless) {
+      this._count = 0;
+      this._emitUpdate();
+      return this._quotes[this._count];
+    }
+
+    return false;
   }
 
   prevQuote() {
@@ -73,9 +79,13 @@ export class QuoteService extends BaseService {
       this._emitUpdate();
       return this._quotes[this._count];
     }
-    this._count = this._quotes.length - 1;
-    this._emitUpdate();
-    return this._quotes[this._count];
+    if (this.endless) {
+      this._count = this._quotes.length - 1;
+      this._emitUpdate();
+      return this._quotes[this._count];
+    }
+
+    return false;
   }
 
   getCurrentQuote() {
