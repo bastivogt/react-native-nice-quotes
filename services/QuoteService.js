@@ -30,7 +30,7 @@ export class QuoteService extends BaseService {
 
   _emitQuoteUpdate() {
     if (typeof this.onQuoteUpdate === "function") {
-      this.onQuoteUpdate();
+      this.onQuoteUpdate(this._quotes);
     }
   }
 
