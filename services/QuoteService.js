@@ -1,5 +1,6 @@
 import { BaseService } from "./BaseService";
 import { uniqueID as uid } from "../helpers/help";
+import { Quote } from "../models/Quote";
 
 export class QuoteService extends BaseService {
   constructor(count = 0, endless = true) {
@@ -7,23 +8,9 @@ export class QuoteService extends BaseService {
     this.onQuoteUpdate;
     this.endless = endless;
     this._quotes = [
-      {
-        id: uid(),
-        text: "Quote 1",
-        author: "Author 1",
-      },
-
-      {
-        id: uid(),
-        text: "Quote 2",
-        author: "Author 2",
-      },
-
-      {
-        id: uid(),
-        text: "Quote 3",
-        author: "Author 3",
-      },
+      new Quote("My first quote", "Sevo"),
+      new Quote("My second quote", "Seppel"),
+      new Quote("My third quote", "Jean Claude"),
     ];
 
     this._count = count;
@@ -95,9 +82,7 @@ export class QuoteService extends BaseService {
     return false;
   }
 
-  getCurrentQuote(
-    emptyQuote = { id: "", text: "No quote available.", author: "" },
-  ) {
+  getCurrentQuote(emptyQuote = new Quote("", "")) {
     if (this.hasQuotes()) {
       return this._quotes[this._count];
     }
@@ -112,7 +97,7 @@ export class QuoteService extends BaseService {
   }
 
   addQuote(text, author = "Unkown") {
-    const newQuote = { id: uid(), text: text, author: author };
+    const newQuote = new Quote(text, author);
     this._quotes.push(newQuote);
     this._emitUpdate();
     this._emitQuoteUpdate();

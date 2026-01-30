@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ServiceStore } from "./services/ServiceStore";
 import { useRefresh } from "./hooks/useRefresh";
+import Quote from "./components/Quote";
 
 export default function App() {
   console.log(ServiceStore.quoteService.quotes);
@@ -53,8 +54,7 @@ export default function App() {
       <Button title="Test" onPress={testHandler} />
       <Text>--------------------------------------------</Text>
       <Button title="Preview Quote" onPress={prevQuoteHandler} />
-      <Text>{ServiceStore.quoteService.getCurrentQuote().text}</Text>
-      <Text>{ServiceStore.quoteService.getCurrentQuote().author}</Text>
+      <Quote quote={ServiceStore.quoteService.getCurrentQuote()} />
       <Button title="Next Quote" onPress={nextQuoteHandler} />
 
       <Text>---</Text>
